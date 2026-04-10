@@ -7,6 +7,12 @@
 		"directory": "./dist",
 		"binding": "ASSETS"
 	},
+	"r2_buckets": [
+		{
+			"binding": "MEDIA",
+			"bucket_name": "ziniavt-files"
+		}
+	],
 	"observability": {
 		"enabled": true
 	},

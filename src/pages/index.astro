@@ -1,50 +1,169 @@
 ---
-import BaseHead from '../components/BaseHead.astro';
-import Header from '../components/Header.astro';
-import Footer from '../components/Footer.astro';
-import { SITE_TITLE, SITE_DESCRIPTION } from '../consts';
 ---
 
 <!doctype html>
 <html lang="en">
 	<head>
-		<BaseHead title={SITE_TITLE} description={SITE_DESCRIPTION} />
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>ZiniaVT</title>
+		<link rel="preconnect" href="https://fonts.googleapis.com" />
+		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+		<link href="https://fonts.googleapis.com/css2?family=Allison&display=swap" rel="stylesheet" />
+		<style>
+			*, *::before, *::after {
+				box-sizing: border-box;
+				margin: 0;
+				padding: 0;
+			}
+			html, body {
+				width: 100%;
+				height: 100%;
+				overflow: hidden;
+				background: #000;
+			}
+			#video-player {
+				position: fixed;
+				inset: 0;
+				width: 100%;
+				height: 100%;
+				object-fit: cover;
+			}
+			#site-title {
+				position: fixed;
+				top: 2rem;
+				left: 0;
+				right: 0;
+				text-align: center;
+				font-family: 'Allison', cursive;
+				font-size: clamp(3rem, 8vw, 7rem);
+				color: #fff;
+				text-shadow: 0 2px 24px rgba(0,0,0,0.5);
+				pointer-events: none;
+				z-index: 20;
+			}
+			#social-links {
+				position: fixed;
+				top: calc(2rem + clamp(3rem, 8vw, 7rem) + 0.75rem);
+				left: 0;
+				right: 0;
+				display: flex;
+				justify-content: center;
+				gap: 1rem;
+				z-index: 20;
+			}
+			#social-links a {
+				display: flex;
+				align-items: center;
+				justify-content: center;
+				width: 2.5rem;
+				height: 2.5rem;
+				border-radius: 50%;
+				background: rgba(0,0,0,0.15);
+				backdrop-filter: blur(6px);
+				color: #fff;
+				transition: background 0.2s ease, transform 0.2s ease;
+				text-decoration: none;
+			}
+			#social-links a:hover {
+				background: rgba(255,255,255,0.3);
+				transform: scale(1.12);
+			}
+			#social-links svg {
+				width: 1.1rem;
+				height: 1.1rem;
+				fill: currentColor;
+			}
+			#loading-overlay {
+				position: fixed;
+				inset: 0;
+				background: transparent;
+				z-index: 10;
+				transition: opacity 0.6s ease;
+			}
+			#loading-overlay.hidden {
+				opacity: 0;
+				pointer-events: none;
+			}
+			#walker-wrap {
+				position: absolute;
+				bottom: 18%;
+				left: 0;
+				animation: walk-pos 3s linear infinite;
+			}
+			#walker {
+				height: 240px;
+				width: auto;
+				display: block;
+				animation: walk-tilt 3s linear infinite;
+			}
+			@keyframes walk-pos {
+				0%   { transform: translateX(-200px) translateY(0px); }
+				12%  { transform: translateX(12vw)   translateY(-18px); }
+				25%  { transform: translateX(25vw)   translateY(0px); }
+				37%  { transform: translateX(37vw)   translateY(-18px); }
+				50%  { transform: translateX(50vw)   translateY(0px); }
+				62%  { transform: translateX(62vw)   translateY(-18px); }
+				75%  { transform: translateX(75vw)   translateY(0px); }
+				87%  { transform: translateX(87vw)   translateY(-18px); }
+				100% { transform: translateX(calc(100vw + 200px)) translateY(0px); }
+			}
+			@keyframes walk-tilt {
+				0%   { transform: rotate(0deg); animation-timing-function: steps(1, end); }
+				12%  { transform: rotate(8deg); animation-timing-function: steps(1, end); }
+				25%  { transform: rotate(0deg); animation-timing-function: steps(1, end); }
+				37%  { transform: rotate(8deg); animation-timing-function: steps(1, end); }
+				50%  { transform: rotate(0deg); animation-timing-function: steps(1, end); }
+				62%  { transform: rotate(8deg); animation-timing-function: steps(1, end); }
+				75%  { transform: rotate(0deg); animation-timing-function: steps(1, end); }
+				87%  { transform: rotate(8deg); animation-timing-function: steps(1, end); }
+				100% { transform: rotate(0deg); }
+			}
+		</style>
 	</head>
 	<body>
-		<Header />
-		<main>
-			<h1>🧑‍🚀 Hello, Astronaut!</h1>
-			<p>
-				Welcome to the official <a href="https://astro.build/">Astro</a> blog starter template. This
-				template serves as a lightweight, minimally-styled starting point for anyone looking to build
-				a personal website, blog, or portfolio with Astro.
-			</p>
-			<p>
-				This template comes with a few integrations already configured in your
-				<code>astro.config.mjs</code> file. You can customize your setup with
-				<a href="https://astro.build/integrations">Astro Integrations</a> to add tools like Tailwind,
-				React, or Vue to your project.
-			</p>
-			<p>Here are a few ideas on how to get started with the template:</p>
-			<ul>
-				<li>Edit this page in <code>src/pages/index.astro</code></li>
-				<li>Edit the site header items in <code>src/components/Header.astro</code></li>
-				<li>Add your name to the footer in <code>src/components/Footer.astro</code></li>
-				<li>Check out the included blog posts in <code>src/content/blog/</code></li>
-				<li>Customize the blog post page layout in <code>src/layouts/BlogPost.astro</code></li>
-			</ul>
-			<p>
-				Have fun! If you get stuck, remember to <a href="https://docs.astro.build/"
-					>read the docs
-				</a> or <a href="https://astro.build/chat">join us on Discord</a> to ask questions.
-			</p>
-			<p>
-				Looking for a blog template with a bit more personality? Check out <a
-					href="https://github.com/Charca/astro-blog-template"
-					>astro-blog-template
-				</a> by <a href="https://twitter.com/Charca">Maxi Ferreira</a>.
-			</p>
-		</main>
-		<Footer />
+		<canvas id="first-frame" style="position:fixed;inset:0;width:100%;height:100%;object-fit:cover;z-index:0;"></canvas>
+		<video
+			id="video-player"
+			src="https://r2.ziniavt.com/zinia_video.mp4"
+			preload="auto"
+			muted
+			loop
+			playsinline
+			style="z-index:1;"
+		></video>
+		<h1 id="site-title">ZiniaVT</h1>
+		<nav id="social-links">
+			<a href="https://x.com/ZiniaVT" target="_blank" rel="noopener noreferrer" aria-label="X (Twitter)">
+				<svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-4.714-6.231-5.401 6.231H2.746l7.73-8.835L1.254 2.25H8.08l4.258 5.63 5.906-5.63Zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
+			</a>
+			<a href="https://www.twitch.tv/ZiniaVT" target="_blank" rel="noopener noreferrer" aria-label="Twitch">
+				<svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M11.571 4.714h1.715v5.143H11.57zm4.715 0H18v5.143h-1.714zM6 0L1.714 4.286v15.428h5.143V24l4.286-4.286h3.428L22.286 12V0zm14.571 11.143-3.428 3.428h-3.429l-3 3v-3H6.857V1.714h13.714z"/></svg>
+			</a>
+		</nav>
+		<div id="loading-overlay">
+			<div id="walker-wrap">
+				<img id="walker" src="/images/zinia_by_tetra.png" alt="" aria-hidden="true" />
+			</div>
+		</div>
+		<script>
+			const video = document.getElementById('video-player') as HTMLVideoElement;
+			const overlay = document.getElementById('loading-overlay') as HTMLDivElement;
+			const canvas = document.getElementById('first-frame') as HTMLCanvasElement;
+
+			// Capture the first frame as a static background
+			video.addEventListener('loadeddata', () => {
+				canvas.width = video.videoWidth;
+				canvas.height = video.videoHeight;
+				canvas.getContext('2d')!.drawImage(video, 0, 0);
+			}, { once: true });
+
+			video.addEventListener('canplaythrough', () => {
+				setTimeout(() => {
+					overlay.classList.add('hidden');
+					video.play();
+				}, 2000);
+			}, { once: true });
+		</script>
 	</body>
 </html>
